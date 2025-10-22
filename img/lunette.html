@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EyeZone - La Conduite Augmentée</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =================================
+           1. RESET ET VARIABLES CSS (NOUVELLE PALETTE)
+           ================================= */
+      :root {
+        --primary-color: #282e58; /* Bleu foncé principal (texte, accents) */
+        --light-bg: #ffffff; /* Fond blanc */
+        --card-bg: #f3f4f6; /* Gris très clair pour les cartes/sections */
+        --border-color: #e5e7eb; /* Gris clair pour les bordures */
+        --text-color: #282e58; /* Texte principal bleu foncé */
+        --text-muted: #6b7280; /* Texte secondaire gris moyen */
+        --header-height: 70px;
+        --success-color: #16a34a; /* Vert succès (plus foncé sur blanc) */
+        --error-color: #dc2626; /* Rouge erreur (plus foncé sur blanc) */
+        --accent-color: #3b82f6; /* Bleu vif pour certains accents si besoin */
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Futura medium italic", sans-serif;
+        background-color: var(--light-bg); /* Fond Blanc */
+        color: var(--text-color); /* Texte Bleu Foncé */
+        line-height: 1.6;
+        font-weight: 400; /* Police standard */
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        image-rendering: optimizeQuality;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--accent-color); /* Liens en bleu vif */
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: var(--primary-color); /* Hover en bleu foncé */
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+        color: var(--primary-color); /* Titres en bleu foncé */
+      }
+
+      h1 {
+        font-size: 3rem;
+      }
+      h2 {
+        font-size: 2.5rem;
+      }
+      h3 {
+        font-size: 1.8rem;
+      }
+      h4 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      } /* H4 aussi en bleu */
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 5rem 2rem;
+      }
+      section:first-of-type .container {
+        padding-top: calc(var(--header-height) + 5rem);
+      }
+
+      /* Boutons CTA adaptés au fond clair */
+      .cta-button {
+        display: inline-block;
+        background-color: var(--primary-color); /* Fond Bleu Foncé */
+        border: 2px solid var(--primary-color);
+        color: var(--light-bg); /* Texte Blanc */
+        padding: 0.8rem 1.8rem;
+        border-radius: 30px;
+        font-weight: 700;
+        transition: background-color 0.3s ease, color 0.3s ease,
+          border-color 0.3s ease;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .cta-button:hover {
+        background-color: transparent;
+        color: var(--primary-color); /* Texte Bleu au survol */
+        border-color: var(--primary-color);
+      }
+
+      /* Bouton secondaire (fantôme) */
+      .cta-button.secondary {
+        background-color: transparent;
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+      .cta-button.secondary:hover {
+        background-color: var(--primary-color);
+        color: var(--light-bg);
+      }
+
+      .cta-button.cta-pay {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+        color: var(--light-bg);
+      }
+      .cta-button.cta-pay:hover {
+        background-color: transparent;
+        color: var(--success-color);
+        border-color: var(--success-color);
+      }
+
+      /* =================================
+           2. HEADER / NAVBAR
+           ================================= */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.8
+        ); /* Fond Blanc semi-transparent */
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 0 2rem;
+        border-bottom: 1px solid var(--border-color); /* Bordure grise claire */
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color); /* Logo en bleu foncé */
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 2.5rem;
+      }
+
+      nav ul li a {
+        color: var(--text-muted); /* Liens en gris moyen */
+        font-weight: 400;
+        transition: color 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: var(--primary-color); /* Hover en bleu foncé */
+      }
+
+      /* Styles pour les conteneurs de page */
+      #page-accueil,
+      #page-produit,
+      #page-paiement {
+        display: block;
+      }
+      #page-produit,
+      #page-paiement {
+        display: none;
+      }
+
+      /* =================================
+           3. SECTION HÉROS (VIDÉO)
+           ================================= */
+      #hero {
+        height: 90vh; /* Légèrement moins haut */
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+        background-color: var(
+          --dark-bg
+        ); /* Garde un fond sombre pour le hero */
+        color: var(--text-color); /* Texte blanc dans le hero */
+      }
+      #hero h1 {
+        color: var(--text-color);
+      } /* Force le titre en blanc */
+      #hero p {
+        color: var(--text-muted);
+      } /* Force le p en gris clair */
+
+      #hero-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        filter: brightness(0.4) contrast(1.1);
+      }
+
+      .hero-content {
+        z-index: 1;
+        max-width: 800px;
+        padding: 2rem;
+      }
+
+      .hero-content h1 {
+        font-size: 3.8rem;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+        font-weight: 700;
+      }
+
+      .hero-content p {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      /* Boutons spécifiques au Hero pour contraster */
+      #hero .cta-button {
+        border-color: var(--light-bg);
+        color: var(--light-bg);
+      }
+      #hero .cta-button:hover {
+        background-color: var(--light-bg);
+        color: var(--dark-bg);
+      }
+      #hero .cta-button.primary {
+        background-color: var(--light-bg);
+        color: var(--dark-bg);
+      }
+      #hero .cta-button.primary:hover {
+        background-color: transparent;
+        color: var(--light-bg);
+      }
+
+      /* =================================
+           4. SECTION FEATURES
+           ================================= */
+      #features {
+        background-color: var(--light-bg);
+      } /* Force le fond blanc si besoin */
+      #features .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      .feature-card {
+        background-color: var(--light-bg); /* Fond blanc pour les cartes */
+        padding: 2rem;
+        border-radius: 15px;
+        border: 1px solid var(--border-color); /* Bordure grise */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Ombre légère */
+      }
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(40, 46, 88, 0.1); /* Ombre bleue au survol */
+      }
+      .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+      }
+      .feature-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted); /* Texte gris */
+        font-family: "Futura medium italic", sans-serif;
+      }
+
+      /* =================================
+           5. SECTION DISPLAY / AFFICHAGE
+           ================================= */
+      #display {
+        background-color: var(--card-bg); /* Fond gris très clair */
+      }
+      #display .display-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .display-image-placeholder {
+        background-color: var(--light-bg); /* Placeholder blanc */
+        border-radius: 15px;
+        height: 400px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--border-color);
+      }
+      .display-image-placeholder p {
+        color: var(--text-muted);
+      }
+
+      /* =================================
+           6. SECTION ACHETER (PAGE PRODUIT)
+           ================================= */
+
+      #shop {
+        background-color: var(--light-bg);
+      }
+
+      .shop-container {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 4rem;
+        align-items: flex-start;
+      }
+
+      .product-gallery {
+        position: sticky;
+        top: calc(var(--header-height) + 2rem);
+      }
+
+      #product-main-image {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        background-color: var(--card-bg);
+      }
+
+      .gallery-thumbnails {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+      }
+
+      .gallery-thumbnails img {
+        border-radius: 8px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease, transform 0.3s ease;
+        height: 80px;
+        object-fit: cover;
+        background-color: var(--card-bg);
+      }
+
+      .gallery-thumbnails img:hover {
+        transform: scale(1.05);
+      }
+
+      .gallery-thumbnails img.active {
+        border-color: var(--primary-color); /* Bordure bleue active */
+      }
+
+      .product-details {
+        padding-top: 1rem;
+      }
+
+      .product-details h3 {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+      }
+
+      .product-price {
+        font-size: 2rem;
+        color: var(--primary-color);
+        font-weight: 700;
+        margin: 0.5rem 0 1.5rem 0;
+      }
+
+      .product-description {
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-size: 1rem;
+      }
+
+      .product-options,
+      .product-prescription {
+        margin-bottom: 1.5rem;
+      }
+
+      .product-options label,
+      .product-prescription label {
+        display: block;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+        color: var(--text-muted);
+      }
+
+      .product-options select {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background-color: var(--light-bg); /* Fond select blanc */
+        color: var(--primary-color); /* Texte select bleu */
+        font-size: 1rem;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); /* Flèche grise */
+        background-position: right 1rem center;
+        background-repeat: no-repeat;
+        background-size: 1em;
+        padding-right: 2.5rem;
+      }
+      .product-options select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(40, 46, 88, 0.2);
+      }
+
+      .product-prescription label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: var(--primary-color); /* Texte checkbox bleu */
+      }
+
+      .product-prescription input {
+        margin-right: 0.8rem;
+        transform: scale(1.2);
+        accent-color: var(--primary-color); /* Coche bleue */
+      }
+
+      .product-details .cta-button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .product-extra-details {
+        margin-top: 3rem;
+        border-top: 1px solid var(--border-color);
+        padding-top: 2rem;
+      }
+      .product-extra-details h4 {
+        font-size: 1.1rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+      .product-extra-details ul {
+        list-style: none;
+        padding-left: 0;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        font-size: 0.95rem;
+      }
+      .product-extra-details ul li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+      .product-extra-details ul li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--primary-color); /* Puce bleue */
+      }
+
+      .testimonial {
+        background-color: var(--card-bg); /* Fond gris clair */
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary-color); /* Bordure bleue */
+        margin-top: 1.5rem;
+      }
+      .testimonial p {
+        font-style: italic;
+        color: var(--primary-color); /* Texte citation bleu */
+        font-size: 0.95rem;
+        margin-bottom: 0.8rem;
+      }
+      .testimonial span {
+        display: block;
+        text-align: right;
+        font-weight: 700;
+        margin-top: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* --- Styles pour la Page de Paiement (Fond Blanc) --- */
+      #page-paiement {
+        background-color: var(--light-bg);
+      }
+      #payment-section {
+        padding-top: var(--header-height);
+        min-height: calc(100vh - var(--header-height));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 5rem;
+      }
+      #payment-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: var(--light-bg); /* Fond Conteneur Blanc */
+        padding: 2.5rem;
+        border-radius: 15px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 10px 20px rgba(40, 46, 88, 0.1); /* Ombre bleue légère */
+      }
+
+      .back-button {
+        color: var(--text-muted);
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+      .back-button:hover {
+        color: var(--primary-color);
+      }
+
+      .payment-form .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .payment-form label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 400;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .payment-form input {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        border: 1px solid var(--border-color);
+        background-color: var(--light-bg); /* Fond input blanc */
+        color: var(--primary-color); /* Texte input bleu */
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .payment-form input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(40, 46, 88, 0.2);
+      }
+
+      .payment-form input.input-error {
+        border-color: var(--error-color);
+      }
+
+      .payment-form .form-row {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .payment-form .form-row .form-group {
+        flex: 1;
+      }
+
+      #payment-error {
+        color: var(--error-color);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        display: none;
+        text-align: center;
+      }
+
+      #payment-confirmation {
+        display: none;
+        text-align: center;
+        padding: 2rem;
+      }
+      #payment-confirmation h3 {
+        color: var(--success-color);
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+      #payment-confirmation p {
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+      }
+
+      /* =================================
+           7. FOOTER
+           ================================= */
+      footer {
+        text-align: center;
+        padding: 4rem 1rem;
+        margin-top: 0; /* Pas besoin de marge si la dernière section est blanche */
+        border-top: 1px solid var(--border-color);
+        color: var(--text-muted);
+        background-color: var(--card-bg); /* Fond footer gris clair */
+      }
+      footer p {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      footer a {
+        color: var(--text-muted);
+        margin: 0 0.5rem;
+      }
+      footer a:hover {
+        color: var(--primary-color);
+      }
+
+      /* =================================
+           8. RESPONSIVE (MOBILE)
+           ================================= */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+        .hero-content h1 {
+          font-size: 2.8rem;
+        }
+        h2 {
+          font-size: 1.8rem;
+        }
+        h3 {
+          font-size: 1.3rem;
+        }
+
+        .container {
+          padding: 3rem 1rem;
+        }
+        section:first-of-type .container {
+          padding-top: calc(var(--header-height) + 3rem);
+        }
+
+        nav ul {
+          display: none;
+        }
+        header {
+          padding: 0 1rem;
+        }
+
+        .features-container {
+          grid-template-columns: 1fr;
+        }
+        #display .display-content {
+          grid-template-columns: 1fr;
+        }
+        .display-image-placeholder {
+          height: 300px;
+          order: -1;
+          margin-bottom: 2rem;
+        }
+
+        /* Scrollytelling désactivé sur mobile pour simplicité */
+        .features-container {
+          grid-template-columns: 1fr;
+        }
+        .sticky-visual {
+          position: relative;
+          top: 0;
+          height: 50vh;
+          margin-bottom: 2rem;
+        }
+        .scroll-step {
+          margin-bottom: 2rem;
+          opacity: 1;
+          border-left: none;
+        }
+
+        .shop-container {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .product-gallery {
+          position: relative;
+          top: 0;
+        }
+        #product-main-image {
+          height: 350px;
+        }
+        .gallery-thumbnails {
+          gap: 0.5rem;
+        }
+        .gallery-thumbnails img {
+          height: 60px;
+        }
+
+        #payment-section {
+          padding: 1rem;
+          align-items: flex-start;
+        }
+        #payment-container {
+          padding: 1.5rem;
+          box-shadow: none;
+          border: none;
+        }
+        .payment-form .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+        .payment-form .form-row .form-group {
+          margin-bottom: 1.5rem;
+        } /* Rétablir la marge */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a class="logo js-nav-home">EYEZONE</a>
+        <ul>
+          <li><a class="js-nav-features">Fonctionnalités</a></li>
+          <li><a class="js-nav-specs">Spécifications</a></li>
+        </ul>
+        <a class="cta-button secondary js-nav-shop">Acheter</a>
+      </nav>
+    </header>
+
+    <main>
+      <div id="page-accueil">
+        <section id="hero">
+          <video
+            autoplay
+            muted
+            loop
+            id="hero-video"
+            poster="https://placehold.co/1920x1080/000000/FFF?text=Poster+Vidéo+Conduite"
+          >
+            <source src="eye.mp4" type="video/mp4" />
+          </video>
+
+          <div class="hero-content">
+            <h1>Ne quittez plus jamais la route des yeux.</h1>
+            <p>
+              Découvrez EyeZone, les lunettes à réalité augmentée qui
+              superposent la navigation, la vitesse et les alertes de danger
+              directement sur votre trajet.
+            </p>
+            <a class="cta-button primary js-nav-shop">Commander (599€)</a>
+          </div>
+        </section>
+
+        <section id="features" class="container">
+          <h2 style="text-align: center; margin-bottom: 3rem">
+            Une technologie pensée pour vous
+          </h2>
+          <div class="features-grid">
+            <div class="feature-card">
+              <h3>Navigation en Réalité Augmentée</h3>
+              <p>
+                Fini de regarder votre téléphone. Des flèches virtuelles se
+                dessinent sur la route pour vous indiquer la bonne voie.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Alertes Intelligentes</h3>
+              <p>
+                Recevez les notifications importantes (angles morts, dangers)
+                sans quitter la route des yeux.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Vision Nocturne Améliorée</h3>
+              <p>
+                Rehausse les contrastes et atténue les phares pour une conduite
+                de nuit plus sûre.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Tableau de Bord Intégré</h3>
+              <p>
+                Vitesse actuelle et limite autorisée s'affichent discrètement
+                dans votre champ de vision.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Design & Confort</h3>
+              <p>
+                Légères, élégantes et compatibles avec vos verres correcteurs.
+                Conçues pour être portées toute la journée.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Connectivité Facile</h3>
+              <p>
+                Se connecte en Bluetooth à votre smartphone (iOS & Android) et à
+                vos applications favorites.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="display" class="container">
+          <div class="display-content">
+            <div>
+              <h4>Affichage Tête Haute</h4>
+              <h2>Clair. Discret. Utile.</h2>
+              <p style="color: var(--text-muted); margin-bottom: 2rem">
+                L'affichage EyeZone apparaît uniquement lorsque vous en avez
+                besoin. Il projette les informations essentielles de manière non
+                intrusive, vous permettant de rester concentré sur la route.
+              </p>
+              <a class="cta-button js-nav-specs">Voir les spécifications</a>
+            </div>
+            <div class="display-image-placeholder">
+              <p>[ Visuel de l'affichage HUD ici ]</p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="universal"
+          class="container"
+          style="background-color: var(--light-bg)"
+        >
+          {/* Section blanche */}
+          <h2>Améliorez votre conduite. Pas votre voiture.</h2>
+          <p
+            style="
+              max-width: 700px;
+              margin: 1rem auto 2.5rem auto;
+              color: var(--text-muted);
+            "
+          >
+            Pas besoin d'acheter une voiture neuve pour une technologie de
+            pointe. EyeZone se connecte à votre smartphone et fonctionne avec
+            n'importe quel véhicule.
+          </p>
+          <img
+          src="https://placehold.co/800x400/F3F4F6/282E58?text=Image+Lunettes+sur+volant+(fond+clair)"
+          /* Placeholder adapté */ alt="Lunettes posées sur un volant"
+          style="border-radius: 10px; margin-top: 2rem; border: 1px solid
+          var(--border-color);" />
+        </section>
+      </div>
+
+      <div id="page-produit">
+        <section id="shop" class="container">
+          <h2 style="text-align: center; margin-bottom: 3rem">EyeZone C-100</h2>
+
+          <div class="shop-container">
+            <div class="product-gallery">
+              <img
+                id="product-main-image"
+                src="lun.png"
+                alt="Lunettes EyeZone vue principale"
+              />
+
+              <div class="gallery-thumbnails">
+                <img class="thumbnail active" src="lun.png" alt="Vue 1" />
+                <img class="thumbnail" src="unnamed (1).jpg" alt="Vue 2" />
+                <img class="thumbnail" src="RAR.jpg" alt="Vue 3" />
+                <img
+                  class="thumbnail"
+                  src="https://placehold.co/200x150/F3F4F6/6B7280?text=Boîte"
+                  alt="Contenu de la boîte"
+                />
+              </div>
+            </div>
+
+            <div class="product-details" id="specs">
+              <h3>EyeZone C-100</h3>
+              <p class="product-price">599,00 €</p>
+              <p class="product-description">
+                L'assistant de conduite ultime. Inclut la navigation RA, les
+                alertes d'angle mort et la vision nocturne améliorée. Autonomie
+                de 8h en continu.
+              </p>
+
+              <div class="product-options">
+                <label for="color">Couleur :</label>
+                <select id="color" name="color">
+                  <option value="noir">Noir Mat</option>
+                  <option value="gris">Gris Titane</option>
+                </select>
+              </div>
+
+              <div class="product-prescription">
+                <label for="prescription">
+                  <input
+                    type="checkbox"
+                    id="prescription"
+                    name="prescription"
+                  />
+                  Ajouter des verres correcteurs (+ 50,00 €)
+                </label>
+              </div>
+
+              <a class="cta-button primary js-add-to-cart">Ajouter au Panier</a>
+
+              <div class="product-extra-details">
+                <h4>Contenu de la boîte :</h4>
+                <ul>
+                  <li>Lunettes EyeZone C-100</li>
+                  <li>Étui de chargement intelligent</li>
+                  <li>Câble USB-C</li>
+                  <li>3 tailles de pont de nez ajustables</li>
+                  <li>Chiffon en microfibre</li>
+                </ul>
+
+                <h4>Avis de nos utilisateurs :</h4>
+                <div class="testimonial">
+                  <p>
+                    "Change la vie sur l'autoroute. Je ne quitte plus jamais la
+                    route des yeux, surtout pour le GPS. Je recommande !"
+                  </p>
+                  <span>- Marc D., Paris</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="page-paiement">
+        <section id="payment-section" class="container">
+          <div id="payment-container">
+            <div id="payment-confirmation">
+              <h3>Paiement Réussi !</h3>
+              <p>
+                Votre commande est confirmée. Un email de confirmation vous a
+                été envoyé. Vos EyeZone sont en route !
+              </p>
+              <a class="cta-button primary js-nav-home">Retour à l'accueil</a>
+            </div>
+
+            <form id="payment-form" class="payment-form">
+              <a class="back-button js-back-to-product"
+                >&larr; Retour au produit</a
+              >
+              <h2 style="text-align: center; margin-bottom: 2rem">
+                Paiement Sécurisé
+              </h2>
+
+              <p id="payment-error">
+                Veuillez remplir tous les champs correctement.
+              </p>
+
+              <div class="form-group">
+                <label for="card-name">Nom sur la carte</label>
+                <input type="text" id="card-name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="card-number">Numéro de carte</label>
+                <input
+                  type="text"
+                  id="card-number"
+                  placeholder="0000 0000 0000 0000"
+                  maxlength="19"
+                  inputmode="numeric"
+                  required
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="card-expiry">Expiration (MM/AA)</label>
+                  <input
+                    type="text"
+                    id="card-expiry"
+                    placeholder="MM/AA"
+                    maxlength="5"
+                    inputmode="numeric"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="card-cvc">CVC</label>
+                  <input
+                    type="text"
+                    id="card-cvc"
+                    placeholder="123"
+                    maxlength="4"
+                    inputmode="numeric"
+                    required
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="cta-button cta-pay js-pay-button"
+                style="
+                  width: 100%;
+                  padding: 1rem;
+                  font-size: 1.1rem;
+                  margin-top: 1rem;
+                "
+              >
+                Payer 599,00 €
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 EyeZone Inc. Tous droits réservés.</p>
+      <p>
+        <a href="#">Presse</a> | <a href="#">Support</a> |
+        <a href="#">Mentions Légales</a>
+      </p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. SÉLECTION DES ÉLÉMENTS ---
+        const pageAccueil = document.getElementById("page-accueil");
+        const pageProduit = document.getElementById("page-produit");
+        const pagePaiement = document.getElementById("page-paiement");
+
+        const navShopLinks = document.querySelectorAll(".js-nav-shop");
+        const navHomeLinks = document.querySelectorAll(".js-nav-home");
+        const navFeaturesLink = document.querySelector(".js-nav-features");
+        const navSpecsLink = document.querySelector(".js-nav-specs");
+
+        const addToCartButton = document.querySelector(".js-add-to-cart");
+        const backToProductButton = document.querySelector(
+          ".js-back-to-product"
+        );
+
+        const paymentForm = document.getElementById("payment-form");
+        const paymentError = document.getElementById("payment-error");
+        const paymentConfirmation = document.getElementById(
+          "payment-confirmation"
+        );
+        const cardName = document.getElementById("card-name");
+        const cardNumber = document.getElementById("card-number");
+        const cardExpiry = document.getElementById("card-expiry");
+        const cardCVC = document.getElementById("card-cvc");
+
+        // Scrollytelling désactivé sur mobile dans le CSS, pas besoin de le gérer ici
+
+        const mainImage = document.getElementById("product-main-image");
+        const thumbnails = document.querySelectorAll(
+          ".gallery-thumbnails .thumbnail"
+        );
+
+        // --- 2. FONCTIONS DE NAVIGATION ---
+        function setActivePage(pageToShow) {
+          [pageAccueil, pageProduit, pagePaiement].forEach((page) => {
+            page.style.display = page === pageToShow ? "block" : "none";
+          });
+          window.scrollTo(0, 0);
+        }
+
+        function showAccueilPage(event) {
+          if (event) event.preventDefault();
+          setActivePage(pageAccueil);
+        }
+        function showProduitPage(event) {
+          if (event) event.preventDefault();
+          setActivePage(pageProduit);
+        }
+        function showPaiementPage(event) {
+          if (event) event.preventDefault();
+          setActivePage(pagePaiement);
+        }
+
+        function showFeaturesSection(event) {
+          event.preventDefault();
+          setActivePage(pageAccueil);
+          setTimeout(
+            () =>
+              document
+                .getElementById("features")
+                .scrollIntoView({ behavior: "smooth" }),
+            50
+          );
+        }
+
+        function showSpecsSection(event) {
+          event.preventDefault();
+          setActivePage(pageProduit);
+          setTimeout(
+            () =>
+              document
+                .getElementById("specs")
+                .scrollIntoView({ behavior: "smooth" }),
+            50
+          );
+        }
+
+        // --- 3. ATTACHE DES ÉCOUTEURS ---
+        navShopLinks.forEach((link) =>
+          link.addEventListener("click", showProduitPage)
+        );
+        navHomeLinks.forEach((link) =>
+          link.addEventListener("click", showAccueilPage)
+        );
+        if (navFeaturesLink)
+          navFeaturesLink.addEventListener("click", showFeaturesSection);
+        if (navSpecsLink)
+          navSpecsLink.addEventListener("click", showSpecsSection);
+        if (addToCartButton)
+          addToCartButton.addEventListener("click", showPaiementPage);
+        if (backToProductButton)
+          backToProductButton.addEventListener("click", showProduitPage);
+
+        // --- 4. SCROLLYTELLING (Inactif sur mobile via CSS) ---
+        // Le code reste ici mais l'effet visuel sera limité par le CSS sur mobile
+        const featureVisual = document.getElementById("feature-visual");
+        const scrollSteps = document.querySelectorAll(".scroll-step");
+        if (scrollSteps.length > 0 && featureVisual) {
+          // Fonction pour vérifier si l'appareil est mobile (basé sur la largeur)
+          const isMobile = () => window.innerWidth <= 768;
+          let observer; // Déclarer l'observer à l'extérieur
+
+          const observerCallback = (entries) => {
+            if (isMobile()) return; // Ne fait rien sur mobile
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                featureVisual.style.opacity = 0;
+                setTimeout(() => {
+                  featureVisual.src = entry.target.dataset.image;
+                  featureVisual.style.opacity = 1;
+                }, 200);
+                scrollSteps.forEach((step) =>
+                  step.classList.remove("is-active")
+                );
+                entry.target.classList.add("is-active");
+              }
+            });
+          };
+
+          const setupObserver = () => {
+            if (observer) observer.disconnect(); // Nettoie l'ancien observer
+            if (!isMobile()) {
+              // Active l'observer seulement sur Desktop
+              const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.5,
+              };
+              observer = new IntersectionObserver(
+                observerCallback,
+                observerOptions
+              );
+              scrollSteps.forEach((step) => observer.observe(step));
+            } else {
+              // Sur mobile, assure que toutes les étapes sont visibles
+              scrollSteps.forEach((step) => step.classList.add("is-active"));
+            }
+          };
+
+          setupObserver(); // Initialise
+          window.addEventListener("resize", setupObserver); // Ré-initialise au redimensionnement
+        }
+
+        // --- 5. GALERIE PRODUIT ---
+        if (mainImage && thumbnails.length > 0) {
+          mainImage.src = thumbnails[0].src;
+          thumbnails.forEach((thumb) => {
+            thumb.addEventListener("click", () => {
+              mainImage.src = thumb.src;
+              thumbnails.forEach((t) => t.classList.remove("active"));
+              thumb.classList.add("active");
+            });
+          });
+        }
+
+        // --- 6. FORMULAIRE DE PAIEMENT ---
+        if (paymentForm) {
+          paymentForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            paymentError.style.display = "none";
+            [cardName, cardNumber, cardExpiry, cardCVC].forEach((input) =>
+              input.classList.remove("input-error")
+            );
+
+            let isValid = true;
+            if (!cardName.value.trim()) {
+              cardName.classList.add("input-error");
+              isValid = false;
+            }
+            if (
+              !cardNumber.value ||
+              cardNumber.value.replace(/\s/g, "").length < 16
+            ) {
+              cardNumber.classList.add("input-error");
+              isValid = false;
+            }
+            if (
+              !cardExpiry.value ||
+              !/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpiry.value)
+            ) {
+              cardExpiry.classList.add("input-error");
+              isValid = false;
+            }
+            if (!cardCVC.value || cardCVC.value.length < 3) {
+              cardCVC.classList.add("input-error");
+              isValid = false;
+            }
+
+            if (isValid) {
+              paymentForm.style.display = "none";
+              paymentConfirmation.style.display = "block";
+              // paymentForm.reset(); // Optionnel: vide le formulaire
+            } else {
+              paymentError.style.display = "block";
+            }
+          });
+        }
+
+        // Formatage auto carte
+        if (cardNumber) {
+          cardNumber.addEventListener("input", (e) => {
+            e.target.value = e.target.value
+              .replace(/[^\d]/g, "")
+              .replace(/(.{4})/g, "$1 ")
+              .trim()
+              .slice(0, 19);
+          });
+        }
+
+        // Formatage auto date expiration
+        if (cardExpiry) {
+          cardExpiry.addEventListener("input", (e) => {
+            let value = e.target.value.replace(/[^\d]/g, "");
+            if (value.length > 2 && value.indexOf("/") === -1) {
+              value = value.substring(0, 2) + "/" + value.substring(2, 4);
+            } else if (value.length > 2) {
+              value = value.substring(0, 5);
+            }
+            e.target.value = value;
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
