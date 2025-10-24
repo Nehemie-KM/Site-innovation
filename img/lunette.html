@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EyeZone - La Conduite Augmentée</title>
 
+    <style></style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,6 +31,10 @@
         --accent-color: #3b82f6; /* Bleu vif pour certains accents si besoin */
       }
 
+      .imgfin {
+        display: flex;
+        text-align: center;
+      }
       * {
         margin: 0;
         padding: 0;
@@ -174,9 +180,7 @@
       }
 
       .logo {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: var(--primary-color); /* Logo en bleu foncé */
+        size: 122px;
       }
 
       nav ul {
@@ -744,12 +748,12 @@
   <body>
     <header>
       <nav>
-        <a class="logo js-nav-home">EYEZONE</a>
+        <li><a class="js-nav-features"><img height="250" width="250" src="logo.png" alt=""></a></li>
         <ul>
           <li><a class="js-nav-features">Fonctionnalités</a></li>
           <li><a class="js-nav-specs">Spécifications</a></li>
         </ul>
-        <a class="cta-button secondary js-nav-shop">Acheter</a>
+        <a class="cta-button  js-nav-shop">panier</a>
       </nav>
     </header>
 
@@ -767,17 +771,36 @@
           </video>
 
           <div class="hero-content">
-            <h1>Ne quittez plus jamais la route des yeux.</h1>
+           
             <p>
-              Découvrez EyeZone, les lunettes à réalité augmentée qui
+              Découvrez EyeZon, les lunettes à réalité augmentée qui
               superposent la navigation, la vitesse et les alertes de danger
               directement sur votre trajet.
             </p>
-            <a class="cta-button primary js-nav-shop">Commander (599€)</a>
+           
           </div>
         </section>
 
-        <section id="features" class="container">
+        
+
+        <section id="display" class="container">
+          <div class="display-content">
+            <div>
+              <h4>Affichage Tête Haute</h4>
+              <h2>Clair. Discret. Utile.</h2>
+              <p style="color: var(--text-muted); margin-bottom: 2rem">
+                L'affichage EyeZon apparaît uniquement lorsque vous en avez
+                besoin. Il projette les informations essentielles de manière non
+                intrusive, vous permettant de rester concentré sur la route.
+              </p>
+              <a class="cta-button js-nav-specs">Voir les spécifications</a>
+            </div>
+            <div class="display-image-placeholder">
+              <img  src="lunette.png" alt="">
+            </div>
+          </div>
+        </section>
+<section id="features" class="container">
           <h2 style="text-align: center; margin-bottom: 3rem">
             Une technologie pensée pour vous
           </h2>
@@ -826,78 +849,57 @@
             </div>
           </div>
         </section>
+       <section
+  id="universal"
+  class="container"
+  style="background-color: var(--light-bg); text-align: center;"
+>
+  
+  <h2>Améliorez votre conduite. Pas votre voiture.</h2>
+  <p
+    style="
+      max-width: 700px;
+      margin: 1rem auto 2.5rem auto;
+      color: var(--text-muted);
+    "
+  >
+    Pas besoin d'acheter une voiture neuve pour une technologie de pointe.
+    EyeZone se connecte à votre smartphone et fonctionne avec n'importe quel véhicule.
+  </p>
+  <img 
+    src="affiche.png"
+    alt="Lunettes posées sur un volant"
+    style=" width: 65%; height: 65%; border-radius: 10px; margin-top: 2rem; border: 1px solid var(--border-color); display: block; margin-left: auto; margin-right: auto;"
+  />
+</section>
 
-        <section id="display" class="container">
-          <div class="display-content">
-            <div>
-              <h4>Affichage Tête Haute</h4>
-              <h2>Clair. Discret. Utile.</h2>
-              <p style="color: var(--text-muted); margin-bottom: 2rem">
-                L'affichage EyeZone apparaît uniquement lorsque vous en avez
-                besoin. Il projette les informations essentielles de manière non
-                intrusive, vous permettant de rester concentré sur la route.
-              </p>
-              <a class="cta-button js-nav-specs">Voir les spécifications</a>
-            </div>
-            <div class="display-image-placeholder">
-              <p>[ Visuel de l'affichage HUD ici ]</p>
-            </div>
-          </div>
-        </section>
 
-        <section
-          id="universal"
-          class="container"
-          style="background-color: var(--light-bg)"
-        >
-          {/* Section blanche */}
-          <h2>Améliorez votre conduite. Pas votre voiture.</h2>
-          <p
-            style="
-              max-width: 700px;
-              margin: 1rem auto 2.5rem auto;
-              color: var(--text-muted);
-            "
-          >
-            Pas besoin d'acheter une voiture neuve pour une technologie de
-            pointe. EyeZone se connecte à votre smartphone et fonctionne avec
-            n'importe quel véhicule.
-          </p>
-          <img
-          src="https://placehold.co/800x400/F3F4F6/282E58?text=Image+Lunettes+sur+volant+(fond+clair)"
-          /* Placeholder adapté */ alt="Lunettes posées sur un volant"
-          style="border-radius: 10px; margin-top: 2rem; border: 1px solid
-          var(--border-color);" />
-        </section>
       </div>
 
       <div id="page-produit">
         <section id="shop" class="container">
-          <h2 style="text-align: center; margin-bottom: 3rem">EyeZone C-100</h2>
+          
 
           <div class="shop-container">
             <div class="product-gallery">
               <img
                 id="product-main-image"
-                src="lun.png"
+                src="lunette.png"
                 alt="Lunettes EyeZone vue principale"
               />
 
               <div class="gallery-thumbnails">
-                <img class="thumbnail active" src="lun.png" alt="Vue 1" />
-                <img class="thumbnail" src="unnamed (1).jpg" alt="Vue 2" />
-                <img class="thumbnail" src="RAR.jpg" alt="Vue 3" />
-                <img
-                  class="thumbnail"
-                  src="https://placehold.co/200x150/F3F4F6/6B7280?text=Boîte"
-                  alt="Contenu de la boîte"
-                />
+                <img class="thumbnail active" src="lunette.png" alt="Vue 1" />
+                <img class="thumbnail" src="4c642426-f3ea-4445-9b52-787023d32c93.jpeg" alt="Vue 2" />
+                <img class="thumbnail" src="Side.jpeg" alt="Vue 3" />
+                <img class="thumbnail" src="Top.jpeg" alt="Vue 4" />
+               <img class="thumbnail" src="Front.jpeg" alt="Vue 5" />
               </div>
             </div>
 
             <div class="product-details" id="specs">
-              <h3>EyeZone C-100</h3>
-              <p class="product-price">599,00 €</p>
+              <h3>Eyezon</h3>
+              <p class="product-price">349,00 €</p>
               <p class="product-description">
                 L'assistant de conduite ultime. Inclut la navigation RA, les
                 alertes d'angle mort et la vision nocturne améliorée. Autonomie
@@ -907,23 +909,22 @@
               <div class="product-options">
                 <label for="color">Couleur :</label>
                 <select id="color" name="color">
-                  <option value="noir">Noir Mat</option>
-                  <option value="gris">Gris Titane</option>
+                  <option value="noir">Bleu nuit profond</option>
                 </select>
               </div>
 
               <div class="product-prescription">
-                <label for="prescription">
+                 <!--  <label for="prescription">
                   <input
                     type="checkbox"
                     id="prescription"
                     name="prescription"
                   />
-                  Ajouter des verres correcteurs (+ 50,00 €)
-                </label>
+                  Ajouter des verres correcteurs + 50,00 € (option )
+                </label>-->
               </div>
 
-              <a class="cta-button primary js-add-to-cart">Ajouter au Panier</a>
+              <a class="cta-button primary js-add-to-cart">Acheter</a>
 
               <div class="product-extra-details">
                 <h4>Contenu de la boîte :</h4>
@@ -1025,7 +1026,7 @@
                   margin-top: 1rem;
                 "
               >
-                Payer 599,00 €
+                Payer 349,00 €
               </button>
             </form>
           </div>
